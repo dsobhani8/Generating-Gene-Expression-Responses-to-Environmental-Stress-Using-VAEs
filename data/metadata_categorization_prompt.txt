@@ -1,0 +1,191 @@
+  Summarize the environmental condition, its level (e.g., High, Low, Control, None), and duration for each sample based on the provided metadata.
+  Use the metadata fields such as 'sample attribute', 'lib name', 'title', 'exp attr', and 'desc' to determine:
+  1. **Condition** (e.g., Cadmium, Cold, Normal, Globiosporangium nunn, Microgravity, drought, etc.).
+  2. **Level** (e.g., High, Low, Control, Added, Removed, None).
+  3. **Duration** (e.g., 12h, 5d, 0h, None).
+  If information is missing or not applicable, use "None". Follow these examples:
+
+  ### Examples
+
+  Example 1.)
+  **Input:**
+    - sample attribute: sample_name: DRS005863 || age: 14 days || treatment: high cadmium stress for 5 days
+    - lib name: DRS005863 RNA Extract
+    - title: Rice seedlings under cadmium stress
+    - exp attr: Experimental Factor: TREATMENT: Cadmium
+    - desc: Rice seedlings grown hydroponically using Yoshida nutrient solution under cadmium stress.
+
+  **Answer:**
+      - Condition: Cadmium
+      - Level: High
+      - Duration: 5d
+
+  Example 2.)
+  **Input:**
+    - sample attribute: sample_name: NPB-48H || treatment: cold stress at 4°C for 48 hours
+    - lib name: NPB-ColdStress-48H
+    - title: Nipponbare cold stress experiment
+    - exp attr: Experimental Factor: TREATMENT: Cold
+    - desc: Nipponbare seedlings treated with cold stress for 48 hours.
+
+  **Answer:**
+      - Condition: Cold
+      - Level: Medium
+      - Duration: 48h
+
+  Example 3.)
+  **Input:**
+    - sample attribute: sample_name: 20004 || treatment: normal conditions
+    - lib name: Normal-Leaf-20004
+    - title: Normalt
+    - exp attr: None
+    - desc: Leaf sample collected under normal growth conditions.
+
+  **Answer:**
+      - Condition: Normal
+      - Level: None
+      - Duration: None
+
+  Example 4.)
+  **Input:**
+    - sample attribute: sample_name: CERrice-RiceRNA-2019-S0004 || treatment: Globiosporangium nunn added
+    - lib name: CERrice-RNA-2019_run1_S0004
+    - title: Experiment on rice leaf
+    - exp attr: Experimental Factor: TREATMENT: Globiosporangium nunn
+    - desc: Leaf sample treated with Globiosporangium nunn.
+
+  **Answer:**
+      - Condition: Globiosporangium nunn
+      - Level: Added
+      - Duration: None
+
+  Example 5.)
+  **Input:**
+    - sample attribute: sample_name: ES_4-5h || treatment: microgravity exposure for 4-5 hours
+    - lib name: ES-42
+    - title: Spaceflight microgravity experiment
+    - exp attr: Experimental Factor: TREATMENT: Microgravity
+    - desc: Experiment in simulated microgravity for 4-5 hours.
+
+  **Output:**
+      - Condition: Microgravity
+      - Level: None
+      - Duration: 5hr
+
+  Example 6.)
+  **Input:**
+    - sample attribute: sample_name: CERrice-RiceRNA-2019-S0008 || treatment: Chironomus kiiensis removed
+    - lib name: CERrice-RNA-2019_run1_S0008
+    - title: Experiment with Chironomus kiiensis removal
+    - exp attr: Experimental Factor: TREATMENT: Chironomus kiiensis
+    - desc: Leaf sample treated by removing Chironomus kiiensis.
+
+  **Output:**
+      - Condition: Chironomus kiiensis
+      - Level: Removed
+      - Duration: None
+
+  Example 7.)
+  **Input:**
+      - sample attribute: ENA first public: 2019-10-05 || ENA last update: 2018-10-22 || External Id: SAMEA5040073 || INSDC center alias: Botany and Plant Pathology Department Oregon State University || INSDC center name: Botany and Plant Pathology Department Oregon State University || INSDC first public: 2019-10-05T04:02:43Z || INSDC last update: 2018-10-22T12:03:43Z || INSDC status: public || Submitter Id: E-MTAB-7317:Nonabokra_D3_UT_rep3 || age: 21 || broker name: ArrayExpress || common name: long-grained rice || cultivar: Nonabokra || developmental stage: seedling development stage || genotype: wild type genotype || organism part: vascular leaf || sample name: E-MTAB-7317:Nonabokra_D3_UT_rep3
+      - lib name: Nonabokra_D3_UT_rep3_p
+      - title: Illumina HiSeq 3000 paired end sequencing; RNA-seq to investigate the transcriptional Response to drought stress in two Indica rice varieties Nagina22 and Nonabokra
+      - exp attr: Experimental Factor: stimulus: none || Experimental Factor: time: 3 || Experimental Factor: cultivar: Nonabokra
+      - desc: Protocols: Full above ground leaf tissue from each biological replicate. All samples collected at 21 days post germination Drought trial took place at the Oregon State University greenhouse with light intensity at 600 micro-mol m -2 s -1 at the base of the plant, relative humidity at 80% and the photoperiod programmed to cycle for 12-hour light and 12-hour dark. Each plant received 1ml of 100x diluted solution of 15-15-15 N-P-K fertilizer and an additional supplement of 10% chelated iron until the first day of stress treatment. Pots were removed from tub of water and allowed to naturally dry out over time to induce drought stress. Total RNA from frozen seedling shoot sample was extracted as per manufacturer's protocol using RNA Plant reagent (Invitrogen Inc., USA), RNeasy kits (Qiagen Inc., USA), and treated with RNase-free DNase (Life Technologies Inc., USA). True-Seq kit (Illumina Inc.) was used to prepare RNA-seq libraries, according to the manufacture's protocol
+
+  **Output:**
+      - Condition: Drought
+      - Level: None
+      - Duration: None
+
+  Example 8.)
+  **Input:**
+      - sample attribute: ENA-FIRST-PUBLIC: 2023-07-05T12:26:37Z || ENA-LAST-UPDATE: 2023-07-05T12:26:37Z || External Id: SAMEA113987048 || INSDC center alias: Department of Plant Biotechnology and Bioinformatics, Ghent University, Gent, Belgium VIB Center for Plant Systems Biology, VIB, Gent, Belgium || INSDC center name: Department of Plant Biotechnology and Bioinformatics, Ghent University, Gent, Belgium VIB Center for Plant Systems Biology, VIB, Gent, Belgium || INSDC first public: 2023-07-05T12:26:37Z || INSDC last update: 2023-07-05T12:26:37Z || INSDC status: public || Submitter Id: E-MTAB-13146:R_24h_MOCK_3 || age: 5 || broker name: ArrayExpress || collection date: not collected || common name: Japanese rice || cultivar: Nipponbare || developmental stage: seedling development stage || genotype: wild type genotype || geographic location (country and/or sea): not collected || isolate: not applicable || organism part: root || sample name: E-MTAB-13146:R_24h_MOCK_3 || scientific_name: Oryza sativa Japonica Group
+      - lib name: R_24h_MOCK_3_s
+      - title: NextSeq 500 sequencing; Dynamic transcriptome response of rice roots and shoots after treatment with different forms of nitrogen
+      - exp attr: nan
+      - desc: Protocols: Rice accessions (Oryza sativa Japonica cv. Nipponbare) were obtained from the USDA-ARS, Dale Bumpers National Rice Research Center, Stuttgart, Arkansas, Genetic Stocks Oryza Collection (www.ars.usda.gov/GSOR). The full roots and shoot tissues were harvested separately. The seed was discarded at the moment of harvest. Rice seedlings (Oryza sativa Nipponbare cultivar) were dehulled and sterilized with ethanol 70% for 5 minutes, followed by immersion in bleach 6% with Tween-20 for 30 minutes. Seedlings were imbibed by immersion in sterile water for 12h to synchronize germination. Germinating seeds were transferred on a hydroponic system, and roots were immersed in a nitrogen-free basal salt medium composed of K2SO4 0.7mM, KH2PO4 0.3mM, CaCl2.2H2O 1mM, MgSO4.7H2O 1mM, Na2Sio03.9H2O, Na2-Fe-EDTA (20µM) for macronutrients, and MnCl2.4H2O 9µM, Na2Mo04.2H2O 0.39µM, H3BO3 20µM, ZnSO4.7H2O 0.77µM, CuSO4.5H2O 0.32µM for micronutrients (pH 5.8). Seedlings were then transferred to a growth cabinet in the dark at 30 degrees for 3 days in a randomized block design. The light was then turned on after 72h. Nitrogen treatments consisted of injection with KNO3 (5mM NO3- treatment), 2.5mM (NH4)2SO4 + 2.5mM K2SO4 (5mM NH4+ treatment), 2.5mM KNO3 + 1.25mM (NH4)2SO4 (NH4NO3 treatment) or 2.5mM K2SO4 (negative control) in the basal medium. Rice seedlings were extracted 15min, 1h, 2h, 4h, 12h, 24h and 48h after nitrogen treatments. At the extraction time-point, shoots and roots were cut with a razor blade and frozen in liquid nitrogen. The remaining seeds were discarded. A 0h time-point was also harvested to control sampling effects and used in comparison to the Mock 0h time point in our analyses. Three different boxes were used for each treatment and for each time-point, for a total of 87 boxes and at least 10 germinated seedlings were sampled per box. Frozen roots and shoot samples were grinded with one 3mm metal bead into Eppendorf tubes. RNA was extracted with Trizol (Life Technologies) and the RNeasy Mini Kit (Qiagen) following the manufacturer instructions. An extra DNase step was performed with RNase-Free DNase Set (Qiagen). RNA samples were resuspended in RNAse free water. RNA concentration and purity were determined spectrophotometrically using the Nanodrop ND-1000 (Nanodrop Technologies) and RNA integrity was assessed using a Bioanalyzer 2100 (Agilent). The sequencing and library preparation was performed by the VIB Nucleomics Core Facility (Leuven, Belgium / www.nucleomics.be). Per sample, 500ng of total RNA was used as input. Using the Illumina TruSeq® Stranded mRNA Sample Prep Kit (protocol version: Part # 15031047 Rev. E - October 2013), poly-A containing mRNA molecules were purified from the total RNA input using poly-T oligo-attached magnetic beads. In a reverse transcription reaction using random primers, RNA was converted into first strand cDNA and subsequently converted into double-stranded cDNA in a second strand cDNA synthesis reaction using DNA PolymeraseI and RNAse H. The cDNA fragments were extended with a single 'A' base to the 3' ends of the blunt-ended cDNA fragments after which multiple indexing adapters were ligated introducing different barcodes for each sample. Finally, enrichment PCR was conducted to enrich those DNA fragments that have adapter molecules on both ends and to amplify the amount of DNA in the library.
+
+  **Output:**
+      - Condition: Nitrogen
+      - Level: Control
+      - Duration: 24h
+
+  Example 9.)
+  **Input:**
+      - sample attribute: Sample Name: source ir29_control_2hrs_rep2 || age: 2 || cultivar: IR29 || developmental stage: seedling, two leaves visible, three leaves visible || organism part: shoot, vascular leaf || specimen with known storage state: fresh specimen
+      - lib name: ir29_control_2hrs_rep2 extract
+      - title: Illumina HiSeq 2000 sequencing; Salt stress in salt sensitive Oryza sativa Indica group IR29 (salt sensitive)
+      - exp attr: Experimental Factor: growth condition: normal watering || Experimental Factor: time: 2 hour
+      - desc: nan
+
+  **Output:**
+      - Condition: Normal
+      - Level: None
+      - Duration: 2h
+
+  Example 10.)
+  **Input:**
+      - sample attribute: ENA first public: 2016-04-15 || ENA last update: 2015-11-30 || External Id: SAMEA2201325 || INSDC center alias: OREGON STATE UNIVERS || INSDC center name: Oregon State University || INSDC first public: 2016-04-15T17:01:39Z || INSDC last update: 2015-11-30T20:35:13Z || INSDC status: public || Submitter Id: E-MTAB-1914:Pokkali_salt_10hrs_rep1 || broker name: ArrayExpress || common name: long-grained rice || cultivar: Pokkali || sample name: E-MTAB-1914:Pokkali_salt_10hrs_rep1
+      - lib name: Pokkali_salt_10hrs_rep1 extract
+      - title: Illumina HiSeq 2000 sequencing; Salt stress in salt sensitive Oryza sativa Indica group Pokkali (salt sensitive)
+      - exp attr: Experimental Factor: growth condition: 300 millimolar sodium chloride || Experimental Factor: time: 10 hour
+      - desc: Protocols: Oryza sativa L. Indica Pokkali seedlings were grown in growth chambers to the -3 leaf stage. At 2 weeks old, they were subjected to salt stress treatment by watering with 300 mM NaCl solution (or normal watering for control plants). Treatment was applied at 10:00 PST (2 hours post-dawn). Seedling shoots (stem and leaves) were sampled at 1 hour, 2 hours, 5 hours, 10 hours, and 24 hours post-treatment. Total cellular RNA was extracted using RNA Plant Reagent (Life Technologies) and treated with RNase-free Turbo DNase (Life Technologies) followed by a clean-up step using Plant RNeasy kits (Qiagen). Concentration, integrity and extent of contamination by ribosomal RNA were assessed using ND-1000 spectrophotometer (Thermo Fisher Scientific) and Bioanalyzer 2100 (Agilent Technologies). For details see Fox et al. (2009) Applications for Ultra-high-Throughput Sequencing. In: Belostotsky (ed.), Plant Systems Biology, vol. 553, pp. 79--108. Libraries were prepared using the TruSeq(TM) RNA Sample Preparation Kits (v2).
+
+  **Output:**
+      - Condition: Salt
+      - Level: High
+      - Duration: 10h
+
+  Example 11.)
+  **Input:**
+      - sample attribute: sample_name: 20036 || age: 57 days || collection_date: 2015-06-16T17:00:00Z || cultivar: SL1218 || geo_loc_name: Japan:Osaka, Takatsuki || isolation_source: paddy field || sample_type: tissue sample || tissue_type: leaf
+      - lib name: Os2015EVO-1-2
+      - title: Illumina HiSeq 2500 single end sequencing of Os2015EVO-1-2-20036
+      - exp attr: nan
+      - desc: The line was sown in germination boxes. At around a month after germination, the seedlings were transplanted into a paddy field. The seed sowing date and transplanting date are 2015-04-16 and 2015-05-14, respectively. The youngest fully expanded leaf was collected from a individual. Sample ID: 20036
+
+  **Output:**
+      - Condition: Normal
+      - Level: None
+      - Duration: None
+
+  Example 12.)
+  **Input:**
+      - sample attribute: sample_name: L-type lateral root primordia rep 4 || biological_replicate: 4 || cultivar: Tiachung 65 || treatment: root tip excision
+      - lib name: nan
+      - title: Illumina HiSeq 2500 paired end sequencing of SAMD00276468
+      - exp attr: nan
+      - desc: nan
+
+  **Output:**
+      - Condition: Root Tip Excision
+      - Level: None
+      - Duration: None
+
+  Example 13.)
+
+  **Input:**
+    - sample attribute: sample_name: DRS000420 || cultivar: Nipponbare || sample comment: Total mRNA from shoot of rice (Oryza sativa ssp. Japonica cv. Nipponbare) seedling || tissue: shoot
+    - lib name: Phosphate sufficient_5days_Shoot
+    - title: Illumina sequencing of cDNAs derived from rice mRNA_Phosphate sufficient_5days_Shoot
+    - exp attr: nan
+    - desc: nan
+
+  **Output:**
+    - Condition: Normal
+    - Level: None
+    - Duration: 5d
+
+  ### Instructions
+
+  Using the format above, summarize the environmental condition, its level, and duration for each sample. Use "None" for missing or inapplicable data.
+
+  Here is the sample you should classify:
+
+  **Input:**
+  {metadata}
+
+  **Output:**
+
+  """
